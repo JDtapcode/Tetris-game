@@ -16,24 +16,30 @@ namespace Tetris
             new OBlock(),
             new SBlock(),
             new TBlock(),
-            new ZBlock()
+            new ZBlock(),
         };
+
         private readonly Random random = new Random();
-        public Block NextBlock {  get; private set; }
-        public BlockQueue() { 
+        public Block NextBlock { get; private set; }
+
+        public BlockQueue()
+        {
             NextBlock = RandomBlock();
         }
+
         private Block RandomBlock()
         {
             return blocks[random.Next(blocks.Length)];
         }
-        public Block GetandUpdate()
+
+        public Block GetAndUpdate()
         {
             Block block = NextBlock;
             do
             {
-                NextBlock=RandomBlock();
-            }while(block.Id ==NextBlock.Id);
+                NextBlock = RandomBlock();
+            } while (block.ID == NextBlock.ID);
+
             return block;
         }
     }

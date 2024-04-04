@@ -20,17 +20,17 @@ namespace Tetris
         {
             Rows = rows;
             Columns = columns;
-            grid = new int[rows, columns];
-
+            grid = new int[Rows, Columns];
         }
         public bool IsInside(int r, int c)
         {
-            return r >= Rows && r < Rows && c >= 0 && c < Columns;
+            return r >= 0 && r < Rows && c >= 0 && c < Columns;
         }
         public bool IsEmpty(int r, int c)
         {
-            return IsInside(r, c) && grid[r, c] == 0;
+            return (IsInside(r, c) && grid[r, c] == 0);
         }
+
         public bool IsRowFull(int r)
         {
             for (int c = 0; c < Columns; c++)
@@ -40,9 +40,9 @@ namespace Tetris
                     return false;
                 }
             }
-
             return true;
         }
+
         public bool IsRowEmpty(int r)
         {
             for (int c = 0; c < Columns; c++)
@@ -54,6 +54,7 @@ namespace Tetris
             }
             return true;
         }
+
         private void ClearRow(int r)
         {
             for (int c = 0; c < Columns; c++)
@@ -61,6 +62,7 @@ namespace Tetris
                 grid[r, c] = 0;
             }
         }
+
         private void MoveRowDown(int r, int numRows)
         {
             for (int c = 0; c < Columns; c++)
@@ -69,22 +71,24 @@ namespace Tetris
                 grid[r, c] = 0;
             }
         }
+
         public int ClearFullRows()
         {
             int cleared = 0;
-            for(int r = Rows-1 ; r >= 0; r--)
+            for (int r = Rows - 1; r >= 0; r--)
             {
                 if (IsRowFull(r))
                 {
                     ClearRow(r);
                     cleared++;
                 }
-                else if(cleared >0 ){
-                    MoveRowDown(r,cleared); 
+                else if (cleared > 0)
+                {
+                    MoveRowDown(r, cleared);
                 }
             }
             return cleared;
         }
-
     }
 }
+

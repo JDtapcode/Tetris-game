@@ -10,29 +10,31 @@ namespace Tetris
 {
     public abstract class Block
     {
-        protected abstract Position[][] Tiles {  get; }
-        protected abstract Position StartOffset {  get; }
-        public abstract int Id {  get; }
+        protected abstract Position[][] Tiles { get; }
+        protected abstract Position StartOffset { get; }
+        public abstract int ID { get; }
+
         private int rotationState;
         private Position offset;
         public Block()
         {
             offset = new Position(StartOffset.Row, StartOffset.Column);
         }
-        public IEnumerable<Position> TilePositions()
+        public IEnumerable<Position> TilesPositions()
         {
-            foreach(Position p in Tiles[rotationState])
+            foreach (Position p in Tiles[rotationState])
             {
-                yield return new Position(p.Row + offset.Row,p.Column + offset.Column);
+                yield return new Position(p.Row + offset.Row, p.Column + offset.Column);
             }
         }
+
         public void RotateCW()
         {
             rotationState = (rotationState + 1) % Tiles.Length;
         }
-        public void RotateCWW()
+        public void RotateCCW()
         {
-            if(rotationState == 0)
+            if (rotationState == 0)
             {
                 rotationState = Tiles.Length - 1;
             }
@@ -40,9 +42,8 @@ namespace Tetris
             {
                 rotationState--;
             }
-            
         }
-        public void Move(int rows,int columns)
+        public void Move(int rows, int columns)
         {
             offset.Row += rows;
             offset.Column += columns;
@@ -50,9 +51,8 @@ namespace Tetris
         public void Reset()
         {
             rotationState = 0;
-            offset.Row=StartOffset.Row;
-            offset.Column=StartOffset.Column;
+            offset.Row = StartOffset.Row;
+            offset.Column = StartOffset.Column;
         }
-
     }
 }
